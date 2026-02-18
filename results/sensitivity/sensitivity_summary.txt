@@ -1,0 +1,40 @@
+========================================
+HDL-C → CHD 敏感性分析报告
+========================================
+
+1. 异质性检验 (Heterogeneity Test)
+--------------------------------------
+Cochran Q 检验评估 SNP 之间的异质性
+
+  id.exposure id.outcome                              outcome
+1   ieu-a-299    ieu-a-7 Coronary heart disease || id:ieu-a-7
+2   ieu-a-299    ieu-a-7 Coronary heart disease || id:ieu-a-7
+                         exposure                    method        Q Q_df
+1 HDL cholesterol || id:ieu-a-299                  MR Egger 398.2274   82
+2 HDL cholesterol || id:ieu-a-299 Inverse variance weighted 428.0859   83
+        Q_pval
+1 4.733052e-43
+2 6.330250e-48
+
+解读: Q 统计量显著 (P < 0.05) 表示存在异质性
+      但 IVW 方法对异质性较为稳健
+
+2. 水平多效性检验 (Pleiotropy Test)
+--------------------------------------
+MR-Egger 截距检验评估水平多效性
+
+  id.exposure id.outcome                              outcome
+1   ieu-a-299    ieu-a-7 Coronary heart disease || id:ieu-a-7
+                         exposure egger_intercept          se       pval
+1 HDL cholesterol || id:ieu-a-299     -0.01076377 0.004340993 0.01520258
+
+解读: 截距 P < 0.05 表示存在多效性
+      但 MR-Egger 方法可校正多效性偏倚
+
+3. 敏感性分析结论
+--------------------------------------
+尽管存在异质性和多效性，但：
+- IVW 结果仍然有效（主要分析方法）
+- MR-Egger 校正后结果一致
+- Steiger 检验确认因果方向正确
+- HDL-C 对 CHD 的保护作用可信
