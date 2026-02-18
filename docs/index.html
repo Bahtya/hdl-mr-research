@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDL与心血管疾病孟德尔随机化研究</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e4e4e4;
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 2.5em;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        .subtitle { font-size: 1.2em; color: #a0a0a0; }
+        .research-question {
+            background: rgba(123, 44, 191, 0.2);
+            border-left: 4px solid #7b2cbf;
+            padding: 20px 30px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        .research-question h3 { color: #00d4ff; margin-bottom: 10px; }
+        section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #00d4ff;
+            border-bottom: 2px solid #7b2cbf;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .method-card {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(0,212,255,0.2);
+        }
+        .method-card h4 { color: #7b2cbf; margin-bottom: 10px; }
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .results-table th, .results-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .results-table th {
+            background: rgba(123, 44, 191, 0.3);
+            color: #00d4ff;
+        }
+        .figure-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .figure {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .figure img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .figure-caption { color: #a0a0a0; font-style: italic; }
+        .conclusion-box {
+            background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(123,44,191,0.2));
+            border: 2px solid #00d4ff;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        .conclusion-box h3 { color: #00d4ff; font-size: 1.5em; margin-bottom: 15px; }
+        .stat-highlight {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .stat-item { text-align: center; padding: 20px; }
+        .stat-value { font-size: 2.5em; font-weight: bold; color: #00d4ff; }
+        .stat-label { color: #a0a0a0; margin-top: 5px; }
+        .timeline { position: relative; padding-left: 30px; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #00d4ff, #7b2cbf);
+        }
+        .timeline-item {
+            position: relative;
+            padding: 20px 0 20px 30px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px; top: 25px;
+            width: 14px; height: 14px;
+            background: #00d4ff;
+            border-radius: 50%;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(123, 44, 191, 0.3);
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin: 5px;
+        }
+        footer { text-align: center; padding: 40px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧬 HDL与心血管疾病孟德尔随机化研究</h1>
+            <p class="subtitle">High-Density Lipoprotein and Cardiovascular Disease: A Mendelian Randomization Study</p>
+            <div style="margin-top: 20px;">
+                <span class="badge">孟德尔随机化</span>
+                <span class="badge">因果推断</span>
+                <span class="badge">心血管疾病</span>
+                <span class="badge">脂质代谢</span>
+            </div>
+        </header>
+        
+        <div class="research-question">
+            <h3>🔬 研究问题</h3>
+            <p><strong>观察性研究发现：</strong>HDL 胆固醇水平高的人群心血管疾病发病率较低。</p>
+            <p><strong>科学假设：</strong>HDL 胆固醇对心血管疾病具有保护作用。</p>
+            <p><strong>研究目的：</strong>利用孟德尔随机化方法，探究 HDL-C 与心血管疾病之间的因果关系。</p>
+        </div>
+        
+        <section id="methods">
+            <h2>📊 研究方法</h2>
+            
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4>🎯 暴露数据 (HDL-C)</h4>
+                    <p>来源：Global Lipids Genetics Consortium</p>
+                    <p>GWAS ID: ieu-a-299</p>
+                </div>
+                <div class="method-card">
+                    <h4>❤️ 结局数据 (CHD)</h4>
+                    <p>来源：CARDIoGRAMplusC4D</p>
+                    <p>GWAS ID: ieu-a-7</p>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 30px;">MR分析方法</h3>
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4>IVW (逆方差加权)</h4>
+                    <p>主要分析方法，假设所有 SNPs 均有效</p>
+                </div>
+                <div class="method-card">
+                    <h4>MR-Egger</h4>
+                    <p>可检测和校正水平多效性</p>
+                </div>
+                <div class="method-card">
+                    <h4>Weighted Median</h4>
+                    <p>允许最多 50% 的 SNPs 无效</p>
+                </div>
+                <div class="method-card">
+                    <h4>Weighted Mode</h4>
+                    <p>基于最常见效应估计</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="results">
+            <h2>📈 研究结果</h2>
+            <p style="color: #a0a0a0;">分析完成后将显示详细的 MR 结果表格。</p>
+        </section>
+        
+        <section id="figures">
+            <h2>🖼️ 论文图表</h2>
+            <div class="figure-container">
+                <div class="figure">
+                    <img src="../figures/scatter_plot.png" alt="散点图">
+                    <p class="figure-caption">图1. MR 散点图</p>
+                </div>
+                <div class="figure">
+                    <img src="../figures/forest_plot.png" alt="森林图">
+                    <p class="figure-caption">图2. 森林图</p>
+                </div>
+                <div class="figure">
+                    <img src="../figures/funnel_plot.png" alt="漏斗图">
+                    <p class="figure-caption">图3. 漏斗图</p>
+                </div>
+                <div class="figure">
+                    <img src="../figures/leave_one_out.png" alt="Leave-one-out图">
+                    <p class="figure-caption">图4. Leave-one-out 分析</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="conclusion">
+            <h2>📝 研究结论</h2>
+            <div class="conclusion-box">
+                <h3>分析进行中...</h3>
+                <p>孟德尔随机化分析完成后，将在此显示主要结论和统计结果。</p>
+            </div>
+        </section>
+        
+        <section id="workflow">
+            <h2>🔄 研究流程</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>数据获取</h4>
+                    <p>从 IEU GWAS 数据库获取 HDL-C 和 CHD 的 GWAS 汇总数据</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>工具变量选择</h4>
+                    <p>选择与 HDL-C 显著关联的 SNPs (P < 5×10⁻⁸)</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>MR 分析</h4>
+                    <p>使用多种 MR 方法进行因果效应估计</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>敏感性分析</h4>
+                    <p>异质性检验、多效性检验、Leave-one-out 分析</p>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>📊 数据来源：IEU GWAS Database | 🔬 分析方法：TwoSampleMR R Package</p>
+            <p>GitHub: <a href="https://github.com/Bahtya/hdl-mr-research" style="color:#00d4ff">Bahtya/hdl-mr-research</a></p>
+        </footer>
+    </div>
+</body>
+</html>
