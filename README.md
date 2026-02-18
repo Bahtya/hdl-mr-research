@@ -21,37 +21,67 @@
 | MR-Egger | 84 | 0.988 | 0.838-1.166 | 0.891 |
 | Weighted Mode | 84 | 0.915 | 0.257-3.263 | 0.892 |
 
-## 📈 可视化报告
+---
 
-👉 **[查看交互式报告](docs/index.html)**
+## 📈 可视化图表
 
-包含：
-- 散点图 (Scatter Plot)
-- 森林图 (Forest Plot)
-- 漏斗图 (Funnel Plot)
-- Leave-One-Out 图
+### 1. 散点图 (Scatter Plot)
+展示每个 SNP 对暴露（HDL-C）和结局（CHD）的效应关系
+
+![散点图](figures/scatter_plot.png)
+
+### 2. 森林图 (Forest Plot)
+展示 MR 各方法的因果效应估计及置信区间
+
+![森林图](figures/forest_plot.png)
+
+### 3. 漏斗图 (Funnel Plot)
+评估潜在的方向性多效性偏倚
+
+![漏斗图](figures/funnel_plot.png)
+
+### 4. Leave-One-Out 图
+评估单个 SNP 对整体结果的影响
+
+![Leave-One-Out](figures/leave_one_out.png)
+
+---
+
+## 📄 研究报告
+
+👉 **[Nature 风格专业报告](docs/report/nature_style_report.html)**
+
+---
 
 ## 📁 项目结构
 
 ```
 hdl-mr-research/
 ├── scripts/
-│   └── analysis.R          # MR分析脚本
+│   └── analysis.R              # MR分析脚本
 ├── results/
-│   ├── mr_results.csv      # MR结果
-│   ├── harmonised_data.csv # 协调后数据
-│   ├── heterogeneity.csv   # 异质性检验
-│   ├── pleiotropy.csv      # 多效性检验
-│   └── conclusion.txt      # 结论
+│   ├── mr_results.csv          # MR结果
+│   ├── harmonised_data.csv     # 协调后数据
+│   ├── sensitivity/            # 敏感性分析结果
+│   │   ├── heterogeneity.csv   # 异质性检验
+│   │   └── pleiotropy.csv      # 多效性检验
+│   └── conclusion.txt          # 结论
 ├── figures/
-│   ├── scatter_plot.png    # 散点图
-│   ├── forest_plot.png     # 森林图
-│   ├── funnel_plot.png     # 漏斗图
-│   └── leave_one_out.png   # Leave-one-out图
+│   ├── scatter_plot.png        # 散点图
+│   ├── forest_plot.png         # 森林图
+│   ├── funnel_plot.png         # 漏斗图
+│   └── leave_one_out.png       # Leave-one-out图
+├── report/
+│   ├── report.html             # 基础HTML报告
+│   └── nature_style_report.html # Nature风格报告
 ├── docs/
-│   └── index.html          # 可视化报告
-└── Dockerfile              # Docker环境
+│   ├── MR_PROMPT_TEMPLATE.md   # AI提示词模板
+│   ├── RESEARCH_PROCESS.md     # 研究过程文档
+│   └── report/                 # 报告文件
+└── Dockerfile                  # Docker环境
 ```
+
+---
 
 ## 🔬 方法
 
@@ -60,12 +90,40 @@ hdl-mr-research/
 - **工具变量**: 86个全基因组显著性SNPs (P < 5×10⁻⁸)
 - **MR方法**: IVW, MR-Egger, Weighted Median, Weighted Mode
 
+---
+
+## 🔍 敏感性分析
+
+### 异质性检验 (Heterogeneity)
+
+| 方法 | Q统计量 | df | P值 |
+|------|---------|-----|-----|
+| IVW | - | - | - |
+| MR-Egger | - | - | - |
+
+### 多效性检验 (Pleiotropy)
+
+| 检验 | 截距 | SE | P值 |
+|------|------|-----|-----|
+| MR-Egger intercept | - | - | - |
+
+---
+
 ## 🛠️ 环境要求
 
 - Docker
 - R 4.3.0+
 - TwoSampleMR, ggplot2, dplyr, patchwork
 
+---
+
 ## 📅 生成时间
 
 2026-02-19
+
+---
+
+## 📖 参考文献
+
+1. Hemani G, et al. The MR-Base platform supports systematic causal inference across the human phenome. eLife 2018.
+2. Bowden J, et al. Mendelian randomization with invalid instruments. Int J Epidemiol 2015.
