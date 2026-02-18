@@ -1,0 +1,34 @@
+{
+  "study": "HDL-CVD 孟德尔随机化研究",
+  "date": "2026-02-18 23:12:16",
+  "n_snps": 25,
+  "exposure": "HDL 胆固醇 (高密度脂蛋白)",
+  "outcome": "心血管疾病 (CVD)",
+  "methods": {
+    "IVW": {
+      "beta": -0.1765,
+      "se": 0.0434,
+      "or": 0.8382,
+      "or_ci_lower": 0.7699,
+      "or_ci_upper": 0.9125,
+      "p_value": 4.7e-05
+    },
+    "Weighted_Median": {
+      "beta": -0.1665,
+      "or": 0.8467
+    },
+    "MR_Egger": {
+      "beta": -0.1911,
+      "or": 0.826
+    }
+  },
+  "heterogeneity": {
+    "Q_statistic": 8.01,
+    "df": 24,
+    "p_value": 0.9995
+  },
+  "interpretation": {
+    "en": "Higher HDL cholesterol is associated with reduced cardiovascular disease risk.",
+    "zh": "HDL 胆固醇水平升高与心血管疾病风险降低相关。"
+  }
+}
