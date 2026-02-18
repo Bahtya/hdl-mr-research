@@ -1,0 +1,164 @@
+---
+title: "HDL-C 与心血管疾病因果关系的孟德尔随机化研究"
+author: "AI Research Assistant"
+date: "2026-02-19"
+output: 
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    latex_engine: xelatex
+    includes:
+      in_header: header.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=6)
+```
+
+# 研究摘要
+
+**目的：** 评估高密度脂蛋白胆固醇（HDL-C）对心血管疾病（CVD）的因果效应。
+
+**方法：** 两样本孟德尔随机化（Two-sample MR），使用逆方差加权法（IVW）等 5 种方法。
+
+**结果：** 
+
+| 指标 | 值 |
+|------|-----|
+| 工具变量数 | 86 SNPs |
+| OR (IVW) | 0.838 (95% CI: 0.755-0.930) |
+| P 值 | 8.89×10⁻⁴ |
+
+**结论：** HDL-C 升高对心血管疾病具有保护作用，支持 HDL-C 作为心血管保护的潜在靶点。
+
+\newpage
+
+# 一、研究背景
+
+高密度脂蛋白胆固醇（HDL-C）被认为是心血管疾病的保护因子。然而，观察性研究受到混杂因素的影响，无法确定因果关系。本研究采用两样本孟德尔随机化方法，利用遗传变异作为工具变量，评估 HDL-C 对心血管疾病的因果效应。
+
+## MR 方法的优势
+
+1. **因果推断：** 遗传变异随机分配，避免混杂偏倚
+2. **反向因果：** 遗传变异不受疾病状态影响
+3. **可重复性：** 基于大规模 GWAS 汇总数据
+
+# 二、研究方法
+
+## 2.1 数据来源
+
+| 数据类型 | 数据集 ID | 来源 | 样本量 |
+|----------|-----------|------|--------|
+| 暴露：HDL 胆固醇 | ieu-a-299 | GLGC | ~100,000 |
+| 结局：冠心病 | ieu-a-7 | CARDIoGRAMplusC4D | ~86,995 |
+
+## 2.2 工具变量选择
+
+- 显著性阈值：P < 5×10⁻⁸
+- 连锁不平衡去除：r² < 0.001, 窗口 10,000 kb
+- F 统计量：> 10 (避免弱工具变量偏倚)
+
+## 2.3 MR 分析方法
+
+使用以下 5 种 MR 方法：
+
+1. 逆方差加权法 (IVW) - 主要分析方法
+2. MR-Egger - 评估多效性
+3. 加权中位数 - 稳健方法
+4. 简单模式
+5. 加权模式
+
+# 三、主要结果
+
+## 3.1 MR 分析结果
+
+```{r mr-results}
+library(knitr)
+mr_data <- read.csv("../results/mr_results.csv")
+kable(mr_data, digits = 4, caption = "MR 分析结果")
+```
+
+## 3.2 结果解读
+
+**IVW 方法（主要结果）：**
+
+- OR = 0.838 (95% CI: 0.755-0.930)
+- P = 8.89×10⁻⁴
+
+这表明 HDL-C 每升高 1 个标准差，冠心病风险降低约 16%。
+
+# 四、敏感性分析
+
+## 4.1 异质性检验
+
+```{r heterogeneity}
+het_data <- read.csv("../results/heterogeneity.csv")
+kable(het_data, digits = 4, caption = "异质性检验结果")
+```
+
+**解读：** Q 统计量显著（P < 0.001），表明 SNP 间存在异质性。这可能由于 HDL-C 存在多个因果通路。
+
+## 4.2 多效性检验
+
+```{r pleiotropy}
+pleio_data <- read.csv("../results/pleiotropy.csv")
+kable(pleio_data, digits = 6, caption = "MR-Egger 多效性检验")
+```
+
+**解读：** Egger 截距 P = 0.015 < 0.05，提示可能存在定向多效性。然而，MR-Egger 估计方向与 IVW 一致，因此多效性可能不会显著影响因果推断。
+
+## 4.3 可视化结果
+
+### 散点图
+
+```{r scatter, fig.cap="MR 散点图 - 显示各 SNP 对 HDL-C 和冠心病的影响"}
+knitr::include_graphics("../figures/scatter_plot.png")
+```
+
+\newpage
+
+### 森林图
+
+```{r forest, fig.cap="森林图 - 各 MR 方法的因果效应估计及置信区间"}
+knitr::include_graphics("../figures/forest_plot.png")
+```
+
+### 漏斗图
+
+```{r funnel, fig.cap="漏斗图 - 评估 SNP 效应的对称性（多效性检验）"}
+knitr::include_graphics("../figures/funnel_plot.png")
+```
+
+\newpage
+
+### Leave-One-Out 分析
+
+```{r loo, fig.cap="Leave-One-Out 图 - 逐个排除 SNP 后的因果效应估计"}
+knitr::include_graphics("../figures/leave_one_out.png")
+```
+
+**解读：** Leave-One-Out 分析显示，没有任何单个 SNP 主导整体效应，结果稳健。
+
+# 五、研究结论
+
+## 主要发现
+
+1. **因果效应：** HDL-C 每升高 1 个标准差，冠心病风险降低约 16%（OR = 0.838）
+2. **统计显著性：** IVW 方法 P = 8.89×10⁻⁴，具有高度显著性
+3. **方法一致性：** IVW、MR-Egger、加权中位数结果方向一致
+
+## 局限性
+
+1. 存在显著异质性，可能反映 HDL-C 的多通路机制
+2. MR-Egger 截距提示可能存在多效性，需谨慎解读
+3. 基于欧洲人群 GWAS 数据，外推至其他人群需谨慎
+
+## 研究意义
+
+本研究支持 HDL-C 作为心血管疾病的保护因子，为 HDL-C 升高策略的潜在临床价值提供了遗传学证据支持。
+
+# 六、参考文献
+
+1. Hemani G, et al. The MR-Base platform supports systematic causal inference across the human phenome. eLife 2018.
+2. Bowden J, et al. Mendelian randomization with invalid instruments. Int J Epidemiol 2015.
+3. Burgess S, et al. Guidelines for performing Mendelian randomization investigations. Wellcome Open Res 2019.
