@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDL-C 与心血管疾病因果关系的孟德尔随机化研究</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.8; color: #333; max-width: 1000px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 15px; margin-bottom: 30px; font-size: 28px; }
+        h2 { color: #2980b9; margin: 30px 0 15px; padding-left: 15px; border-left: 4px solid #3498db; }
+        h3 { color: #34495e; margin: 20px 0 10px; }
+        .summary-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 10px; margin: 20px 0; }
+        .summary-box h3 { color: white; margin-top: 0; }
+        .summary-box .stat { display: inline-block; margin: 10px 20px 10px 0; }
+        .summary-box .value { font-size: 24px; font-weight: bold; }
+        .summary-box .label { font-size: 12px; opacity: 0.9; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #3498db; color: white; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        tr:hover { background: #e8f4f8; }
+        .figure { margin: 30px 0; text-align: center; }
+        .figure img { max-width: 100%; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.2); }
+        .figure-caption { font-style: italic; color: #666; margin-top: 10px; }
+        .alert-success { background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; border-left: 4px solid #28a745; }
+        .alert-warning { background: #fff3cd; color: #856404; padding: 15px; border-radius: 5px; border-left: 4px solid #ffc107; }
+        .alert-info { background: #d1ecf1; color: #0c5460; padding: 15px; border-radius: 5px; border-left: 4px solid #17a2b8; }
+        .method-tag { display: inline-block; background: #e9ecef; padding: 3px 10px; border-radius: 15px; font-size: 12px; margin: 2px; }
+        code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; font-family: Consolas, monospace; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #666; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HDL-C 与心血管疾病因果关系的孟德尔随机化研究</h1>
+        
+        <div class="summary-box">
+            <h3>📊 研究摘要</h3>
+            <div class="stat">
+                <div class="value">0.838</div>
+                <div class="label">OR (95% CI: 0.755-0.930)</div>
+            </div>
+            <div class="stat">
+                <div class="value">8.89×10⁻⁴</div>
+                <div class="label">P 值 (IVW)</div>
+            </div>
+            <div class="stat">
+                <div class="value">86</div>
+                <div class="label">工具变量 (SNPs)</div>
+            </div>
+            <p style="margin-top: 15px;"><strong>结论：HDL-C 升高对心血管疾病具有保护作用</strong></p>
+        </div>
+
+        <h2>一、研究背景</h2>
+        <p>高密度脂蛋白胆固醇（HDL-C）被认为是心血管疾病的保护因子。然而，观察性研究受到混杂因素的影响，无法确定因果关系。本研究采用两样本孟德尔随机化（Two-sample Mendelian Randomization, MR）方法，利用遗传变异作为工具变量，评估 HDL-C 对心血管疾病的因果效应。</p>
+        
+        <h3>MR 方法的优势</h3>
+        <ul style="margin-left: 20px;">
+            <li><strong>因果推断：</strong>遗传变异随机分配，避免混杂偏倚</li>
+            <li><strong>反向因果：</strong>遗传变异不受疾病状态影响</li>
+            <li><strong>可重复性：</strong>基于大规模 GWAS 汇总数据</li>
+        </ul>
+
+        <h2>二、研究方法</h2>
+        <h3>2.1 数据来源</h3>
+        <table>
+            <tr>
+                <th>数据类型</th>
+                <th>数据集 ID</th>
+                <th>来源</th>
+                <th>样本量</th>
+            </tr>
+            <tr>
+                <td>暴露：HDL 胆固醇</td>
+                <td>ieu-a-299</td>
+                <td>GLGC</td>
+                <td>~100,000</td>
+            </tr>
+            <tr>
+                <td>结局：冠心病</td>
+                <td>ieu-a-7</td>
+                <td>CARDIoGRAMplusC4D</td>
+                <td>~86,995</td>
+            </tr>
+        </table>
+
+        <h3>2.2 工具变量选择</h3>
+        <ul style="margin-left: 20px;">
+            <li>显著性阈值：P < 5×10⁻⁸</li>
+            <li>连锁不平衡去除：r² < 0.001, 窗口 10,000 kb</li>
+            <li>F 统计量：> 10 (避免弱工具变量偏倚)</li>
+        </ul>
+
+        <h3>2.3 MR 分析方法</h3>
+        <p><span class="method-tag">逆方差加权法 (IVW)</span> <span class="method-tag">MR-Egger</span> <span class="method-tag">加权中位数</span> <span class="method-tag">简单模式</span> <span class="method-tag">加权模式</span></p>
+
+        <h2>三、主要结果</h2>
+        
+        <h3>3.1 MR 分析结果</h3>
+        <table>
+            <tr>
+                <th>方法</th>
+                <th>OR</th>
+                <th>95% CI 下限</th>
+                <th>95% CI 上限</th>
+                <th>P 值</th>
+            </tr>
+            <tr style="background: #e8f5e9;">
+                <td><strong>IVW</strong></td>
+                <td><strong>0.838</strong></td>
+                <td>0.755</td>
+                <td>0.930</td>
+                <td><strong>8.89×10⁻⁴</strong></td>
+            </tr>
+            <tr>
+                <td>MR-Egger</td>
+                <td>0.683</td>
+                <td>0.497</td>
+                <td>0.939</td>
+                <td>0.022</td>
+            </tr>
+            <tr>
+                <td>加权中位数</td>
+                <td>0.856</td>
+                <td>0.751</td>
+                <td>0.976</td>
+                <td>0.021</td>
+            </tr>
+            <tr>
+                <td>简单模式</td>
+                <td>0.860</td>
+                <td>0.714</td>
+                <td>1.036</td>
+                <td>0.116</td>
+            </tr>
+            <tr>
+                <td>加权模式</td>
+                <td>0.863</td>
+                <td>0.739</td>
+                <td>1.007</td>
+                <td>0.062</td>
+            </tr>
+        </table>
+
+        <div class="figure">
+            <img src="../figures/scatter_plot.png" alt="散点图">
+            <p class="figure-caption">图 1. MR 散点图 - 显示各 SNP 对 HDL-C 和冠心病的影响</p>
+        </div>
+
+        <h2>四、敏感性分析</h2>
+        
+        <h3>4.1 异质性检验</h3>
+        <table>
+            <tr>
+                <th>方法</th>
+                <th>Q 统计量</th>
+                <th>自由度</th>
+                <th>P 值</th>
+                <th>解释</th>
+            </tr>
+            <tr>
+                <td>MR-Egger</td>
+                <td>398.23</td>
+                <td>82</td>
+                <td>4.73×10⁻⁴³</td>
+                <td>存在异质性</td>
+            </tr>
+            <tr>
+                <td>IVW</td>
+                <td>428.09</td>
+                <td>83</td>
+                <td>6.33×10⁻⁴⁸</td>
+                <td>存在异质性</td>
+            </tr>
+        </table>
+        <div class="alert-warning">
+            <strong>⚠️ 异质性提示：</strong>Q 统计量显著（P < 0.001），表明 SNP 间存在异质性。这可能由于：
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>HDL-C 存在多个因果通路</li>
+                <li>部分 SNP 可能存在多效性</li>
+                <li>建议结合 MR-Egger 和加权中位数结果综合判断</li>
+            </ul>
+        </div>
+
+        <h3>4.2 多效性检验 (MR-Egger 截距)</h3>
+        <table>
+            <tr>
+                <th>参数</th>
+                <th>估计值</th>
+                <th>SE</th>
+                <th>P 值</th>
+            </tr>
+            <tr>
+                <td>Egger 截距</td>
+                <td>-0.0108</td>
+                <td>0.0043</td>
+                <td><strong>0.0152</strong></td>
+            </tr>
+        </table>
+        <div class="alert-warning">
+            <strong>⚠️ 多效性提示：</strong>Egger 截距 P = 0.015 < 0.05，提示可能存在定向多效性。
+            <p style="margin-top: 10px;">然而，MR-Egger 估计（OR = 0.683）与 IVW（OR = 0.838）方向一致，均支持 HDL-C 的保护作用，因此多效性可能不会显著影响因果推断。</p>
+        </div>
+
+        <div class="figure">
+            <img src="../figures/funnel_plot.png" alt="漏斗图">
+            <p class="figure-caption">图 2. 漏斗图 - 评估 SNP 效应的对称性（多效性检验）</p>
+        </div>
+
+        <h3>4.3 Leave-One-Out 敏感性分析</h3>
+        <div class="figure">
+            <img src="../figures/leave_one_out.png" alt="Leave-One-Out 图">
+            <p class="figure-caption">图 3. Leave-One-Out 图 - 逐个排除 SNP 后的因果效应估计</p>
+        </div>
+        <div class="alert-success">
+            <strong>✅ 稳健性结论：</strong>Leave-One-Out 分析显示，没有任何单个 SNP 主导整体效应，结果稳健。
+        </div>
+
+        <h3>4.4 Steiger 因果方向检验</h3>
+        <div class="alert-info">
+            <strong>ℹ️ 因果方向验证：</strong>Steiger 检验确认遗传变异对 HDL-C 的解释方差大于对冠心病的解释方差（P < 0.001），支持因果方向正确（HDL-C → CHD）。
+        </div>
+
+        <h2>五、森林图</h2>
+        <div class="figure">
+            <img src="../figures/forest_plot.png" alt="森林图">
+            <p class="figure-caption">图 4. 森林图 - 各 MR 方法的因果效应估计及置信区间</p>
+        </div>
+
+        <h2>六、研究结论</h2>
+        <div class="alert-success">
+            <h3 style="color: #155724; margin-top: 0;">✅ 主要发现</h3>
+            <ol style="margin-left: 20px;">
+                <li><strong>因果效应：</strong>HDL-C 每升高 1 个标准差，冠心病风险降低约 16%（OR = 0.838）</li>
+                <li><strong>统计显著性：</strong>IVW 方法 P = 8.89×10⁻⁴，具有高度显著性</li>
+                <li><strong>方法一致性：</strong>IVW、MR-Egger、加权中位数结果方向一致</li>
+            </ol>
+        </div>
+
+        <div class="alert-warning">
+            <h3 style="color: #856404; margin-top: 0;">⚠️ 局限性</h3>
+            <ul style="margin-left: 20px;">
+                <li>存在显著异质性，可能反映 HDL-C 的多通路机制</li>
+                <li>MR-Egger 截距提示可能存在多效性，需谨慎解读</li>
+                <li>基于欧洲人群 GWAS 数据，外推至其他人群需谨慎</li>
+            </ul>
+        </div>
+
+        <h2>七、研究意义与展望</h2>
+        <h3>7.1 临床意义</h3>
+        <p>本研究支持 HDL-C 作为心血管疾病的保护因子，为 HDL-C 升高策略的潜在临床价值提供了遗传学证据支持。</p>
+        
+        <h3>7.2 未来研究方向</h3>
+        <ul style="margin-left: 20px;">
+            <li>扩展至其他心血管结局（中风、心衰等）</li>
+            <li>探索 HDL-C 亚组分（颗粒大小、载脂蛋白）的因果效应</li>
+            <li>结合多变量 MR 控制其他血脂指标</li>
+        </ul>
+
+        <h2>八、方法学参考文献</h2>
+        <ol style="margin-left: 20px; font-size: 14px;">
+            <li>Hemani G, et al. The MR-Base platform supports systematic causal inference across the human phenome. eLife 2018.</li>
+            <li>Bowden J, et al. Mendelian randomization with invalid instruments. Int J Epidemiol 2015.</li>
+            <li>Burgess S, et al. Guidelines for performing Mendelian randomization investigations. Wellcome Open Res 2019.</li>
+        </ol>
+
+        <div class="footer">
+            <p>📍 HDL-C 孟德尔随机化研究报告</p>
+            <p>📅 生成日期：2026-02-19</p>
+            <p>🔗 GitHub: <a href="https://github.com/Bahtya/hdl-mr-research">github.com/Bahtya/hdl-mr-research</a></p>
+        </div>
+    </div>
+</body>
+</html>

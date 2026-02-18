@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDL与心血管疾病孟德尔随机化研究</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            color: white;
+            padding: 40px 0;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .card h2 {
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .hypothesis {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .hypothesis-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .h0 {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+        }
+        .h1 {
+            background: #dcfce7;
+            border: 2px solid #22c55e;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .stat-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            color: #64748b;
+            margin-top: 5px;
+        }
+        .figure-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .figure-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .conclusion {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .conclusion h2 {
+            color: white;
+            border: none;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e2e8f0;
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧬 HDL与心血管疾病孟德尔随机化研究</h1>
+            <p>Mendelian Randomization Study: HDL-C and Cardiovascular Disease</p>
+        </header>
+
+        <section class="card">
+            <h2>📋 研究背景</h2>
+            <p style="line-height: 1.8; color: #475569;">
+                高密度脂蛋白胆固醇 (HDL-C) 被普遍认为是一种"好胆固醇"。流行病学研究表明，
+                HDL-C 水平较高的人群心血管疾病发病率较低。然而，观察性研究无法排除混杂因素
+                和反向因果关系的影响。本研究采用孟德尔随机化方法，利用遗传变异作为工具变量，
+                探索 HDL-C 与心血管疾病之间的因果关系。
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>🔬 研究假设</h2>
+            <div class="hypothesis">
+                <div class="hypothesis-box h0">
+                    <h3>H₀ 原假设</h3>
+                    <p>HDL-C 对心血管疾病无因果影响</p>
+                </div>
+                <div class="hypothesis-box h1">
+                    <h3>H₁ 备择假设</h3>
+                    <p>HDL-C 对心血管疾病有保护作用</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>📊 研究方法</h2>
+            <div class="results-grid">
+                <div class="stat-box">
+                    <div class="stat-value">IVW</div>
+                    <div class="stat-label">逆方差加权法</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">MR-Egger</div>
+                    <div class="stat-label">Egger回归</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">WME</div>
+                    <div class="stat-label">加权中位数</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">WMO</div>
+                    <div class="stat-label">加权众数</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card" id="results-section">
+            <h2>📈 研究结果</h2>
+            <div id="results-content">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>分析进行中，请稍候...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card" id="figures-section">
+            <h2>📉 图表</h2>
+            <div id="figures-content">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>图表生成中...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card conclusion" id="conclusion-section">
+            <h2>✅ 研究结论</h2>
+            <p id="conclusion-text">分析完成后将显示结论...</p>
+        </section>
+
+        <footer>
+            <p>© 2026 HDL-MR Research Project | Powered by TwoSampleMR R Package</p>
+        </footer>
+    </div>
+
+    <script>
+        // 加载结果数据
+        async function loadResults() {
+            try {
+                // 加载MR结果
+                const response = await fetch('results/mr_results.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    displayResults(data);
+                }
+            } catch (error) {
+                console.log('等待分析完成...');
+            }
+        }
+
+        function displayResults(data) {
+            const html = `
+                <div class="results-grid">
+                    ${data.map(r => `
+                        <div class="stat-box">
+                            <div class="stat-value">${r.method}</div>
+                            <div class="stat-label">OR: ${r.OR} (${r.CI})</div>
+                            <div class="stat-label">P = ${r.pval}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            document.getElementById('results-content').innerHTML = html;
+        }
+
+        // 初始加载
+        setTimeout(loadResults, 1000);
+    </script>
+</body>
+</html>
