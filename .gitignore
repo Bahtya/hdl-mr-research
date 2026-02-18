@@ -1,0 +1,28 @@
+# R
+.Rhistory
+.Rdata
+.RData
+.Ruserdata
+*.Rproj.user/
+
+# Data files
+*.csv
+*.tsv
+data/*.gz
+
+# Results (uncomment to exclude)
+# results/
+# figures/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+.docker/
